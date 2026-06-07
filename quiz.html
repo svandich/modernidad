@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — Origen de la Modernidad</title>
+  <style>
+    :root {
+      --ink: #1e1b4b;
+      --paper: #fff;
+      --bg: #f4f4f6;
+      --correct: #059669;
+      --correct-bg: #f0fdf4;
+      --correct-border: #6ee7b7;
+      --wrong: #dc2626;
+      --wrong-bg: #fff5f5;
+      --wrong-border: #fca5a5;
+      --neutral-border: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 55%, #7c3aed 100%);
+      color: #fff;
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+    header p {
+      margin-top: .4rem;
+      opacity: .7;
+      font-size: .88rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    /* ── SCORE BAR ── */
+    #score-bar {
+      background: #1e1b4b;
+      color: #e0e7ff;
+      text-align: center;
+      padding: .6rem 1rem;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    #score-bar span { color: #a5b4fc; }
+    #progress-wrap {
+      width: 160px;
+      height: 5px;
+      background: rgba(255,255,255,.15);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    #progress-bar {
+      height: 100%;
+      background: #818cf8;
+      border-radius: 99px;
+      transition: width .4s ease;
+      width: 0%;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 720px;
+      margin: 2.5rem auto;
+      padding: 0 1.2rem;
+    }
+
+    /* ── QUIZ CARD ── */
+    .quiz-card {
+      background: var(--paper);
+      border-radius: 1.2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06);
+      padding: 2rem 2.2rem;
+      border-top: 4px solid #4f46e5;
+    }
+
+    .q-meta {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin-bottom: 1.2rem;
+    }
+    .q-num {
+      background: #ede9fe;
+      color: #5b21b6;
+      font-size: .7rem;
+      font-weight: 800;
+      padding: .25rem .75rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      white-space: nowrap;
+    }
+    .q-label {
+      font-size: .72rem;
+      font-weight: 600;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .q-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      margin-bottom: 1.4rem;
+      line-height: 1.5;
+    }
+
+    /* ── OPTIONS ── */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: .9rem;
+      background: #fff;
+      border: 1.5px solid var(--neutral-border);
+      border-radius: .8rem;
+      padding: .9rem 1.1rem;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      font-size: .93rem;
+      color: var(--ink);
+      transition: border-color .15s, background .15s, transform .1s;
+      width: 100%;
+    }
+    .option-btn:hover:not(:disabled) {
+      border-color: #818cf8;
+      background: #faf5ff;
+      transform: translateY(-1px);
+    }
+    .option-btn:disabled { cursor: default; }
+
+    .opt-letter {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      color: #6b7280;
+      font-weight: 800;
+      font-size: .78rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, color .15s;
+    }
+    .opt-text {
+      padding-top: 2px;
+      line-height: 1.45;
+    }
+
+    /* ── RESULT STATES ── */
+    .option-btn.correct {
+      border-color: var(--correct-border);
+      background: var(--correct-bg);
+    }
+    .option-btn.correct .opt-letter {
+      background: var(--correct);
+      color: #fff;
+    }
+    .option-btn.wrong {
+      border-color: var(--wrong-border);
+      background: var(--wrong-bg);
+    }
+    .option-btn.wrong .opt-letter {
+      background: var(--wrong);
+      color: #fff;
+    }
+
+    /* ── EXPLANATION ── */
+    .explanation {
+      display: none;
+      margin-top: .5rem;
+      padding: .55rem .9rem .55rem 2.9rem;
+      font-size: .82rem;
+      border-radius: 0 0 .6rem .6rem;
+      line-height: 1.5;
+    }
+    .correct .explanation {
+      display: block;
+      color: #065f46;
+      background: #ecfdf5;
+    }
+    .wrong .explanation {
+      display: block;
+      color: #991b1b;
+      background: #fff1f2;
+    }
+
+    /* ── FEEDBACK BANNER ── */
+    #feedback {
+      display: none;
+      margin-top: 1.4rem;
+      padding: .9rem 1.2rem;
+      border-radius: .8rem;
+      font-weight: 700;
+      font-size: .95rem;
+      display: none;
+      align-items: center;
+      gap: .6rem;
+    }
+    #feedback.show { display: flex; }
+    #feedback.fb-correct {
+      background: #f0fdf4;
+      color: var(--correct);
+      border: 1px solid var(--correct-border);
+    }
+    #feedback.fb-wrong {
+      background: var(--wrong-bg);
+      color: var(--wrong);
+      border: 1px solid var(--wrong-border);
+    }
+
+    /* ── NEXT BTN ── */
+    #next-btn {
+      display: none;
+      margin-top: 1.2rem;
+      width: 100%;
+      padding: .85rem;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: .8rem;
+      font-size: .95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+      letter-spacing: .01em;
+    }
+    #next-btn:hover { background: #3730a3; transform: translateY(-1px); }
+    #next-btn.show { display: block; }
+
+    /* ── FINAL SCREEN ── */
+    #final-screen {
+      display: none;
+      text-align: center;
+    }
+    #final-screen .trophy {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    #final-screen h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: .5rem;
+    }
+    #final-screen .final-score {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #4f46e5;
+      line-height: 1;
+      margin: 1rem 0;
+    }
+    #final-screen .final-label {
+      font-size: .85rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 1.5rem;
+    }
+    .final-msg {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: .8rem;
+      padding: 1rem 1.4rem;
+      color: #4c1d95;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      font-size: .95rem;
+    }
+    #restart-btn {
+      padding: .85rem 2.5rem;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: .8rem;
+      font-size: .95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    #restart-btn:hover { background: #3730a3; }
+
+    /* ── QUIZ SECTION (hidden while not active) ── */
+    #quiz-section { display: none; }
+    #quiz-section.active { display: block; }
+    #final-screen.active { display: block; }
+
+    /* ── START SCREEN ── */
+    #start-screen {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    #start-screen h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: .5rem;
+    }
+    #start-screen p {
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+      font-size: .93rem;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: .8rem;
+      padding: .8rem 1.5rem;
+      text-align: center;
+    }
+    .stat-n { font-size: 2rem; font-weight: 900; color: #4f46e5; line-height: 1; }
+    .stat-l { font-size: .72rem; color: #6b7280; text-transform: uppercase; letter-spacing: .06em; margin-top: .2rem; }
+    #start-btn {
+      padding: .9rem 3rem;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: .8rem;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    #start-btn:hover { background: #3730a3; transform: translateY(-2px); }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #9ca3af;
+      font-size: .8rem;
+      letter-spacing: .04em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📝 Quiz de Historia</h1>
+  <p>Historia, Geografía y Ciencias Sociales · Origen de la Modernidad</p>
+</header>
+
+<div id="score-bar">
+  <span id="score-text">0 / 0 correctas</span>
+  <div id="progress-wrap"><div id="progress-bar"></div></div>
+  <span id="q-counter">Pregunta 0 de 20</span>
+</div>
+
+<main>
+  <div class="quiz-card">
+
+    <!-- START SCREEN -->
+    <div id="start-screen">
+      <h2>¿Estás listo?</h2>
+      <p>Este quiz cubre los temas de Origen de la Modernidad: economía, monarquías, renacimiento, viajes de exploración y conquista de América.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-n">20</div><div class="stat-l">Preguntas</div></div>
+        <div class="stat"><div class="stat-n">A·B·C</div><div class="stat-l">Opciones</div></div>
+        <div class="stat"><div class="stat-n">💡</div><div class="stat-l">Con explicaciones</div></div>
+      </div>
+      <button id="start-btn" onclick="startQuiz()">Comenzar Quiz</button>
+    </div>
+
+    <!-- QUIZ SECTION -->
+    <div id="quiz-section">
+      <div class="q-meta">
+        <div class="q-num" id="q-num-badge">Pregunta 1</div>
+        <div class="q-label" id="q-topic-label">Economía</div>
+      </div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options-container"></div>
+      <div id="feedback"></div>
+      <button id="next-btn" onclick="nextQuestion()">Siguiente →</button>
+    </div>
+
+    <!-- FINAL SCREEN -->
+    <div id="final-screen">
+      <div class="trophy" id="final-trophy">🏆</div>
+      <h2 id="final-title">¡Quiz terminado!</h2>
+      <div class="final-score" id="final-score-num"></div>
+      <div class="final-label">preguntas correctas de 20</div>
+      <div class="final-msg" id="final-msg"></div>
+      <button id="restart-btn" onclick="restartQuiz()">Volver a intentar</button>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  Historia, Geografía y Ciencias Sociales · Octavo Básico
+</footer>
+
+<script>
+const questions = [
+  // ── FROM THE EXAM (e.pdf) ──
+  {
+    topic: "Edades Históricas",
+    text: "¿En qué siglo comienza la Edad Moderna?",
+    options: [
+      { letter: "A", text: "Siglo XIII", correct: false, why: "El siglo XIII pertenece a la Baja Edad Media, no al inicio de la Edad Moderna." },
+      { letter: "B", text: "Siglo XV", correct: true,  why: "Correcto. La Edad Moderna comienza con la caída del Imperio Bizantino en 1453, que ocurrió en el siglo XV." },
+      { letter: "C", text: "Siglo XX", correct: false, why: "El siglo XX corresponde a la Edad Contemporánea, muy posterior al inicio de la Edad Moderna." }
+    ]
+  },
+  {
+    topic: "Economía",
+    text: "Entre los cambios de carácter <strong>económico</strong> que se producen en el paso de la Edad Media a la Moderna podemos mencionar:",
+    options: [
+      { letter: "A", text: "La pérdida de poder de los señores feudales.", correct: false, why: "Ese es un cambio de carácter político, no económico. El debilitamiento del poder feudal es parte de la formación de los Estados Nacionales." },
+      { letter: "B", text: "El resurgimiento de la actividad comercial.", correct: true,  why: "Correcto. El resurgimiento del comercio es el principal cambio económico del período, que además dio origen al capitalismo." },
+      { letter: "C", text: "El surgimiento de nuevas clases sociales.", correct: false, why: "El surgimiento de nuevas clases (como la burguesía) es un cambio de carácter social, no económico." }
+    ]
+  },
+  {
+    topic: "Sociedad",
+    text: "La sociedad feudal y gran parte de la moderna se organizó en base a <strong>estamentos</strong>, es decir:",
+    options: [
+      { letter: "A", text: "Grupos sociales determinados de acuerdo al dinero.", correct: false, why: "Los estamentos no se definían por la riqueza monetaria, sino por el nacimiento. La pertenencia era hereditaria e inamovible." },
+      { letter: "B", text: "Grupos sociales rígidos, a los cuales se pertenecía por nacimiento.", correct: true,  why: "Correcto. Los estamentos eran divisiones sociales fijas determinadas por el nacimiento, sin posibilidad real de ascenso social." },
+      { letter: "C", text: "Clases flexibles que permitían la movilidad social.", correct: false, why: "Eso describe más bien a las clases sociales modernas. Los estamentos eran todo lo contrario: rígidos e impermeables." }
+    ]
+  },
+  {
+    topic: "Resurgimiento Comercial",
+    text: "¿Cuáles de los siguientes fenómenos históricos pueden ser considerados <strong>causas</strong> del resurgimiento urbano y comercial a fines de la Edad Media?<br><br><small>I. El desarrollo de las cruzadas<br>II. La economía autárquica<br>III. La aparición de excedentes agrícolas</small>",
+    options: [
+      { letter: "A", text: "Solo III", correct: false, why: "Los excedentes agrícolas sí fueron una causa, pero también lo fueron las cruzadas al abrir rutas de comercio con Oriente." },
+      { letter: "B", text: "Solo I y II", correct: false, why: "La economía autárquica (II) era el modelo medieval de autoabastecimiento que impedía el comercio, no una causa de su resurgimiento." },
+      { letter: "C", text: "Solo I y III", correct: true,  why: "Correcto. Las cruzadas abrieron rutas comerciales con Oriente (I) y los excedentes agrícolas generaron productos para intercambiar (III). La autarquía era el obstáculo, no la causa." }
+    ]
+  },
+  {
+    topic: "Resurgimiento Comercial",
+    text: "El resurgimiento urbano y comercial en la Baja Edad Media produjo el desarrollo de pequeñas ciudades. ¿Cuál(es) es(son) alguna(s) consecuencia(s) de ese fenómeno?<br><br><small>I. El auge y crecimiento de la burguesía<br>II. El desarrollo de nuevas nociones de libertad<br>III. Transformaciones económicas a partir del comercio</small>",
+    options: [
+      { letter: "A", text: "Solo I", correct: false, why: "El crecimiento de la burguesía fue solo una de las múltiples consecuencias. El comercio urbano también transformó la economía y las nociones de libertad." },
+      { letter: "B", text: "Solo II y III", correct: false, why: "Las transformaciones económicas y de libertad son correctas, pero el auge de la burguesía (I) también fue una consecuencia directa del resurgimiento urbano." },
+      { letter: "C", text: "I, II y III", correct: true,  why: "Correcto. Las tres son consecuencias del resurgimiento comercial: la burguesía creció (I), surgieron nuevas ideas de libertad vinculadas a las ciudades (II) y la economía se transformó (III)." }
+    ]
+  },
+  {
+    topic: "Capitalismo",
+    text: "Junto con el desarrollo del comercio, la economía se va haciendo más compleja: surge la moneda, los banqueros, los prestamistas. De este proceso podríamos decir que:",
+    options: [
+      { letter: "A", text: "Sienta las bases del capitalismo.", correct: true,  why: "Correcto. El crédito, la inversión, el interés y la acumulación de capital son los pilares del capitalismo, que nació precisamente de este proceso comercial." },
+      { letter: "B", text: "Surge una nueva mentalidad más oriental.", correct: false, why: "La mentalidad que surge es occidental y burguesa, centrada en el comercio, el lucro y la acumulación de capital, no en una orientación hacia el mundo oriental." },
+      { letter: "C", text: "Es un cambio político de los feudos a las monarquías.", correct: false, why: "El paso de los feudos a las monarquías es un cambio político. El surgimiento de la moneda y los banqueros es un fenómeno económico, no político." }
+    ]
+  },
+  {
+    topic: "Sociedad",
+    text: "A finales de la Edad Media surge un nuevo grupo social asociado a las actividades comerciales y a las ciudades. ¿A qué grupo social nos referimos?",
+    options: [
+      { letter: "A", text: "La nobleza.", correct: false, why: "La nobleza existía desde la Edad Media y estaba ligada a la tierra y al sistema feudal, no era un grupo nuevo surgido del comercio." },
+      { letter: "B", text: "Los campesinos.", correct: false, why: "Los campesinos eran el grupo más numeroso del feudalismo y estaban atados al campo, no a las ciudades ni a las actividades comerciales." },
+      { letter: "C", text: "La burguesía.", correct: true,  why: "Correcto. La burguesía fue el nuevo grupo social que surgió en las ciudades (burgos) gracias al comercio. Su nombre proviene precisamente de 'burgo' (ciudad)." }
+    ]
+  },
+  {
+    topic: "Monarquías",
+    text: "¿Cuál de las siguientes alternativas corresponde a una característica de la <strong>Monarquía Absoluta</strong>?",
+    options: [
+      { letter: "A", text: "El poder recaía en el monarca, quien contaba con un poder ilimitado, hereditario y vitalicio.", correct: true,  why: "Correcto. En la monarquía absoluta el rey concentra todo el poder, lo hereda por nacimiento, lo ejerce de por vida y no tiene límites institucionales." },
+      { letter: "B", text: "El monarca ejercía su poder bajo el control de una asamblea legislativa o parlamento.", correct: false, why: "Esa descripción corresponde a la Monarquía Parlamentaria, donde el poder se divide entre el rey y el parlamento, como ocurrió en Inglaterra." },
+      { letter: "C", text: "La familia real establecía acuerdos con nobles y burgueses para poder gobernar.", correct: false, why: "En la monarquía absoluta el rey no necesitaba negociar con nadie. Fue precisamente el debilitamiento de la nobleza lo que permitió consolidar el poder absoluto del monarca." }
+    ]
+  },
+  {
+    topic: "Estados Nacionales",
+    text: "En el paso de la Edad Media a la Edad Moderna se forman los Estados Nacionales Monárquicos. Con respecto a este proceso, es correcto señalar que:",
+    options: [
+      { letter: "A", text: "Contó con la ayuda económica de un nuevo grupo social: la burguesía.", correct: true,  why: "Correcto. La burguesía prestaba capital al rey para financiar ejércitos e instituciones, y a cambio el rey les otorgaba protección para sus negocios." },
+      { letter: "B", text: "La burguesía, que concentró el poder durante la Edad Media, decide entregarlo al rey.", correct: false, why: "Quien concentraba el poder en la Edad Media era la nobleza feudal, no la burguesía. La burguesía era un grupo nuevo y emergente." },
+      { letter: "C", text: "Todos los Estados terminaron siendo una monarquía absoluta.", correct: false, why: "No todos siguieron el mismo camino. Inglaterra desarrolló una monarquía parlamentaria, mientras que Francia consolidó una monarquía absoluta." }
+    ]
+  },
+  {
+    topic: "Economía",
+    text: "¿Cuáles de los siguientes corresponden a elementos de cambio entre la Edad Media y la Edad Moderna en el ámbito <strong>económico</strong>?",
+    options: [
+      { letter: "A", text: "El poder político pasa de estar fragmentado en los señores feudales a estar concentrado en el rey.", correct: false, why: "Ese es un cambio de ámbito político (centralización del poder en el rey), no económico." },
+      { letter: "B", text: "El comercio pasa a ser la actividad económica más importante tanto en ciudades como en zonas rurales.", correct: false, why: "El comercio se concentró principalmente en las ciudades. Las zonas rurales siguieron siendo predominantemente agrícolas en este período." },
+      { letter: "C", text: "De la mano del comercio surge una nueva estructura económica, el capitalismo, basada en la acumulación, reinversión y multiplicación del capital.", correct: true,  why: "Correcto. El capitalismo es el gran cambio económico de la Edad Moderna: basado en el capital, el crédito, la inversión y el lucro, reemplazando la economía de subsistencia feudal." }
+    ]
+  },
+
+  // ── 10 ADDITIONAL QUESTIONS ──
+  {
+    topic: "Monarquías",
+    text: "¿Cuál fue la diferencia clave en la formación de las monarquías inglesa y francesa?",
+    options: [
+      { letter: "A", text: "En Inglaterra el rey eliminó a los señores feudales; en Francia el rey tuvo que aliarse con ellos.", correct: false, why: "Es al revés. Fue en Inglaterra donde el rey NO logró derrotar a los señores feudales y debió aliarse con ellos." },
+      { letter: "B", text: "En Francia el rey debilitó a la nobleza y concentró el poder; en Inglaterra el rey se alió con los señores feudales.", correct: true,  why: "Correcto. Los reyes franceses debilitaron a los nobles y se quedaron con todo el poder (monarquía absoluta), mientras que los ingleses tuvieron que unirse a los señores feudales (monarquía parlamentaria)." },
+      { letter: "C", text: "Ambas monarquías siguieron el mismo proceso de centralización del poder real.", correct: false, why: "Sus procesos fueron muy distintos: Francia terminó con una monarquía absoluta e Inglaterra con una parlamentaria, aunque ambas comenzaron a formarse en el siglo XII." }
+    ]
+  },
+  {
+    topic: "Absolutismo",
+    text: "Según la teoría de <strong>Thomas Hobbes</strong> (El Leviatán), ¿cómo se justifica el poder absoluto del soberano?",
+    options: [
+      { letter: "A", text: "El rey obtiene su poder directamente de Dios y está por encima de todas las leyes.", correct: false, why: "Esa es la teoría del origen divino del poder, planteada por Bossuet y Jean Bodin, no por Hobbes." },
+      { letter: "B", text: "Los hombres, por instinto de supervivencia, ceden su poder a un soberano para que los gobierne.", correct: true,  why: "Correcto. Hobbes argumenta que sin un soberano el hombre es el lobo del hombre, por lo que la gente cede su libertad al Estado (Leviatán) para garantizar su seguridad." },
+      { letter: "C", text: "El gobernante debe mantener el poder a cualquier costo para garantizar la seguridad del Estado.", correct: false, why: "Esa es la teoría de Maquiavelo, quien planteaba que el fin (mantener el poder) justifica cualquier medio." }
+    ]
+  },
+  {
+    topic: "Crisis Edad Media",
+    text: "¿Cuál de los siguientes fue un factor de la <strong>Crisis de la Baja Edad Media</strong>?",
+    options: [
+      { letter: "A", text: "El surgimiento del capitalismo y la burguesía.", correct: false, why: "El capitalismo y la burguesía surgieron como consecuencia del resurgimiento comercial, que es posterior y no es una causa de la crisis medieval." },
+      { letter: "B", text: "La conquista española del Imperio Azteca.", correct: false, why: "La conquista de América ocurrió en el siglo XVI, mucho después de la Crisis de la Baja Edad Media (siglos XIV-XV)." },
+      { letter: "C", text: "La Peste Negra y la Guerra de los Cien Años.", correct: true,  why: "Correcto. La Peste Negra mató casi a la mitad de la población europea y la Guerra de los Cien Años (1337-1453) sumió a Francia e Inglaterra en la pobreza, siendo los principales factores de la crisis medieval." }
+    ]
+  },
+  {
+    topic: "Reforma Protestante",
+    text: "¿Cuál de las siguientes prácticas de la Iglesia Católica en el siglo XV se conoce como <strong>simonía</strong>?",
+    options: [
+      { letter: "A", text: "El traspaso de un cargo eclesiástico a un familiar.", correct: false, why: "Eso es el nepotismo: asignar un cargo religioso a un pariente en vez de a la persona más capacitada." },
+      { letter: "B", text: "La venta del perdón de los pecados.", correct: false, why: "La venta del perdón eran las indulgencias, una de las prácticas que Martín Lutero criticó en sus 95 Tesis." },
+      { letter: "C", text: "La venta de los cargos eclesiásticos.", correct: true,  why: "Correcto. La simonía era la compraventa de cargos, sacramentos o poderes espirituales dentro de la Iglesia, una práctica de corrupción muy extendida en el siglo XV." }
+    ]
+  },
+  {
+    topic: "Humanismo y Renacimiento",
+    text: "¿Cuál es la característica central del Humanismo Renacentista?",
+    options: [
+      { letter: "A", text: "Es teocéntrico: pone a Dios como centro de toda reflexión y conocimiento.", correct: false, why: "El teocentrismo caracterizaba a la mentalidad medieval. El Humanismo representa precisamente la ruptura con esa visión." },
+      { letter: "B", text: "Es antropocéntrico: pone al ser humano como centro del pensamiento y la cultura.", correct: true,  why: "Correcto. El Humanismo se centra en el ser humano (antropos), cuestiona la Edad Media y rescata las culturas clásicas de Grecia y Roma." },
+      { letter: "C", text: "Es geocéntrico: considera que la Tierra es el centro del universo.", correct: false, why: "El geocentrismo es una teoría astronómica de la Edad Media. El Renacimiento lo cuestionó con la teoría heliocéntrica (el Sol como centro)." }
+    ]
+  },
+  {
+    topic: "Viajes de Exploración",
+    text: "¿Cuál fue el objetivo principal de Cristóbal Colón en su viaje de 1492?",
+    options: [
+      { letter: "A", text: "Descubrir y explorar un continente desconocido para Europa.", correct: false, why: "Colón no sabía que existía América. Su objetivo era llegar a Asia. El encuentro con América fue accidental." },
+      { letter: "B", text: "Rodear el continente africano para llegar a India.", correct: false, why: "Esa fue la ruta de Vasco de Gama en 1498, que navegó por las costas de África hasta llegar a India." },
+      { letter: "C", text: "Encontrar una nueva ruta de comercio hacia Asia navegando hacia el oeste.", correct: true,  why: "Correcto. Colón sabía que la Tierra era redonda y calculó que podía llegar a Asia (y sus especias) navegando hacia el occidente, evitando las rutas controladas por el Imperio Turco." }
+    ]
+  },
+  {
+    topic: "Viajes de Exploración",
+    text: "¿Qué establecían las <strong>Capitulaciones de Santa Fe</strong>?",
+    options: [
+      { letter: "A", text: "La división del mundo entre España y Portugal mediante una línea imaginaria.", correct: false, why: "Eso fue el Tratado de Tordesillas (1494), firmado después del viaje de Colón, cuando Portugal protestó por la Bula Inter Caetera." },
+      { letter: "B", text: "El acuerdo entre la Corona española y Colón: ella financia el viaje y él obtiene el 10% de las riquezas y el título de Virrey.", correct: true,  why: "Correcto. Las Capitulaciones de Santa Fe fueron el contrato entre la Corona de Castilla y Colón: ella autorizaba y financiaba el viaje; él recibía el 10% de los recursos, el título de Virrey y Capitán General, y la obligación de evangelizar." },
+      { letter: "C", text: "La alianza entre España y Portugal para explorar juntos las nuevas tierras.", correct: false, why: "España y Portugal compitieron por las rutas y territorios; no hubo una alianza de exploración conjunta. De hecho, por eso fue necesario el Tratado de Tordesillas." }
+    ]
+  },
+  {
+    topic: "Conquista de América",
+    text: "¿Cuál fue el factor <strong>más relevante</strong> que facilitó la conquista del Imperio Azteca, según los análisis históricos?",
+    options: [
+      { letter: "A", text: "La superioridad numérica del ejército español.", correct: false, why: "Ocurrió todo lo contrario: los Aztecas eran muy superiores en número, lo que hacía imposible una conquista solo con fuerzas españolas." },
+      { letter: "B", text: "Las alianzas militares con los pueblos sometidos por los Aztecas.", correct: true,  why: "Correcto. Los Aztecas dominaban a muchos pueblos que los odiaban. Los españoles los convencieron de aliarse, lo que fue decisivo ya que los Aztecas tenían ventaja numérica. Sin esas alianzas la conquista habría sido imposible." },
+      { letter: "C", text: "El uso de pólvora y cañones, desconocidos por los Aztecas.", correct: false, why: "Aunque la tecnología española fue un factor, no fue el más relevante. Los Aztecas aprendieron rápidamente a lidiar con las armas europeas. Las alianzas con pueblos sometidos tuvieron un impacto mucho mayor." }
+    ]
+  },
+  {
+    topic: "Ciencia Moderna",
+    text: "Según Thomas Kuhn, ¿qué es un <strong>cambio de paradigma</strong>?",
+    options: [
+      { letter: "A", text: "Un nuevo descubrimiento que confirma y refuerza las teorías científicas existentes.", correct: false, why: "Un descubrimiento que confirma las teorías existentes no genera un cambio de paradigma, sino que refuerza el paradigma actual." },
+      { letter: "B", text: "Un avance tecnológico financiado por el Estado para mejorar la ciencia.", correct: false, why: "Kuhn no define el cambio de paradigma en términos de financiamiento estatal. Su teoría se basa en las crisis explicativas que ocurren dentro de la propia comunidad científica." },
+      { letter: "C", text: "Un nuevo marco de pensamiento que reemplaza al anterior cuando este ya no puede explicar ciertos fenómenos.", correct: true,  why: "Correcto. Para Kuhn, una revolución científica ocurre cuando un problema o fenómeno no puede resolverse dentro del paradigma vigente, forzando a la comunidad científica a adoptar uno completamente nuevo. La ciencia es un producto de la historia y la sociedad." }
+    ]
+  },
+  {
+    topic: "Conquista de América",
+    text: "¿Cuál fue una consecuencia directa de la conquista española en la población indígena de América?",
+    options: [
+      { letter: "A", text: "Los indígenas fueron integrados como ciudadanos iguales en el nuevo orden colonial.", correct: false, why: "Los indígenas fueron sometidos, esclavizados o convertidos al catolicismo. No hubo integración como ciudadanos iguales; el sistema colonial estableció una rígida jerarquía racial." },
+      { letter: "B", text: "La disminución drástica de la población indígena, principalmente por las enfermedades traídas por los europeos.", correct: true,  why: "Correcto. Las enfermedades europeas (viruela, sarampión) contra las que los indígenas no tenían defensas inmunológicas fueron devastadoras. A esto se sumó la pérdida de costumbres y creencias de los pueblos originarios." },
+      { letter: "C", text: "Los indígenas mantuvieron sus costumbres y creencias sin mayores cambios.", correct: false, why: "La conquista implicó la imposición forzada de una nueva religión (catolicismo), idioma e instituciones. Las costumbres y creencias indígenas fueron activamente suprimidas." }
+    ]
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+
+function startQuiz() {
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('quiz-section').classList.add('active');
+  updateScoreBar();
+  loadQuestion();
+}
+
+function updateScoreBar() {
+  document.getElementById('score-text').textContent = score + ' / ' + current + ' correctas';
+  document.getElementById('q-counter').textContent = 'Pregunta ' + (current + 1) + ' de ' + questions.length;
+  document.getElementById('progress-bar').style.width = ((current / questions.length) * 100) + '%';
+}
+
+function loadQuestion() {
+  answered = false;
+  const q = questions[current];
+  document.getElementById('q-num-badge').textContent = 'Pregunta ' + (current + 1);
+  document.getElementById('q-topic-label').textContent = q.topic;
+  document.getElementById('q-text').innerHTML = q.text;
+
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `
+      <div class="opt-letter">${opt.letter}</div>
+      <div>
+        <div class="opt-text">${opt.text}</div>
+        <div class="explanation">${opt.why}</div>
+      </div>
+    `;
+    btn.onclick = () => selectAnswer(i);
+    container.appendChild(btn);
+  });
+
+  document.getElementById('feedback').className = '';
+  document.getElementById('feedback').style.display = 'none';
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.classList.remove('show');
+  nextBtn.textContent = current === questions.length - 1 ? 'Ver resultados →' : 'Siguiente →';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+
+  const q = questions[current];
+  const buttons = document.querySelectorAll('.option-btn');
+  const isCorrect = q.options[idx].correct;
+
+  if (isCorrect) score++;
+
+  buttons.forEach((btn, i) => {
+    btn.disabled = true;
+    if (q.options[i].correct) {
+      btn.classList.add('correct');
+    } else if (i === idx && !isCorrect) {
+      btn.classList.add('wrong');
+    }
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'flex';
+  if (isCorrect) {
+    fb.className = 'fb-correct show';
+    fb.innerHTML = '✅ ¡Correcto!';
+  } else {
+    fb.className = 'fb-wrong show';
+    fb.innerHTML = '❌ Incorrecto. La respuesta correcta está marcada en verde.';
+  }
+
+  document.getElementById('next-btn').classList.add('show');
+  updateScoreBar();
+}
+
+function nextQuestion() {
+  current++;
+  if (current >= questions.length) {
+    showFinal();
+  } else {
+    updateScoreBar();
+    loadQuestion();
+  }
+}
+
+function showFinal() {
+  document.getElementById('quiz-section').classList.remove('active');
+  document.getElementById('final-screen').classList.add('active');
+
+  const pct = score / questions.length;
+  document.getElementById('final-score-num').textContent = score + ' / ' + questions.length;
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('score-text').textContent = score + ' / ' + questions.length + ' correctas';
+  document.getElementById('q-counter').textContent = '¡Terminado!';
+
+  let trophy, title, msg;
+  if (pct >= 0.9) {
+    trophy = '🏆'; title = '¡Excelente!';
+    msg = 'Dominas muy bien los contenidos del Origen de la Modernidad. ¡Sigue así!';
+  } else if (pct >= 0.7) {
+    trophy = '🎯'; title = '¡Muy bien!';
+    msg = 'Buen trabajo. Repasa los temas en los que tuviste dificultades y lo harás perfecto.';
+  } else if (pct >= 0.5) {
+    trophy = '📚'; title = 'Puedes mejorar';
+    msg = 'Tienes una base, pero hay conceptos que vale la pena repasar en los apuntes.';
+  } else {
+    trophy = '💡'; title = '¡A estudiar!';
+    msg = 'Te recomendamos repasar los apuntes de Origen de la Modernidad antes de volver a intentarlo.';
+  }
+
+  document.getElementById('final-trophy').textContent = trophy;
+  document.getElementById('final-title').textContent = title;
+  document.getElementById('final-msg').textContent = msg;
+}
+
+function restartQuiz() {
+  current = 0;
+  score = 0;
+  answered = false;
+  document.getElementById('final-screen').classList.remove('active');
+  document.getElementById('quiz-section').classList.add('active');
+  updateScoreBar();
+  loadQuestion();
+}
+</script>
+</body>
+</html>

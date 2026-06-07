@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apuntes de Historia — Origen de la Modernidad</title>
+  <style>
+    :root {
+      --yellow: #fef08a;
+      --green:  #bbf7d0;
+      --blue:   #bfdbfe;
+      --red:    #fecaca;
+      --ink:    #1e1b4b;
+      --paper:  #fafaf7;
+      --ruled:  #e5e7eb;
+      --accent: #7c3aed;
+      --accent2:#059669;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #f4f4f6;
+      color: var(--ink);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO ── */
+    header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 55%, #7c3aed 100%);
+      color: #fff;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #1e1b4b;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: .3rem;
+      padding: .6rem 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a {
+      color: #a5b4fc;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: .35rem .85rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background .2s, color .2s, border-color .2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    nav a:hover { background: #4f46e5; color: #fff; border-color: #6366f1; }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 920px;
+      margin: 2.5rem auto;
+      padding: 0 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #fff;
+      border-radius: 1.2rem;
+      padding: 2rem 2.4rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06);
+      position: relative;
+      border-top: 4px solid var(--accent);
+    }
+    .card.green  { border-top-color: var(--accent2); }
+    .card.blue   { border-top-color: #2563eb; }
+    .card.red    { border-top-color: #dc2626; }
+    .card.orange { border-top-color: #d97706; }
+    .card.teal   { border-top-color: #0891b2; }
+
+    /* ── DATE BADGE ── */
+    .date-badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      background: #ede9fe;
+      color: #5b21b6;
+      padding: .25rem .8rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .card.green  .date-badge { background: #d1fae5; color: #065f46; }
+    .card.blue   .date-badge { background: #dbeafe; color: #1e3a8a; }
+    .card.red    .date-badge { background: #fee2e2; color: #991b1b; }
+    .card.orange .date-badge { background: #fef3c7; color: #78350f; }
+    .card.teal   .date-badge { background: #cffafe; color: #155e75; }
+
+    /* ── TITLES ── */
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: .4rem;
+      color: #1e1b4b;
+      letter-spacing: -.01em;
+    }
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 1.3rem 0 .5rem;
+      color: #4338ca;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-size: .82rem;
+    }
+    .card.green h2 { color: #064e3b; }
+    .card.green h3 { color: #059669; }
+    .card.blue  h2 { color: #1e3a8a; }
+    .card.blue  h3 { color: #2563eb; }
+    .card.red   h2 { color: #7f1d1d; }
+    .card.red   h3 { color: #dc2626; }
+    .card.orange h2{ color: #78350f; }
+    .card.orange h3{ color: #d97706; }
+    .card.teal  h2 { color: #164e63; }
+    .card.teal  h3 { color: #0891b2; }
+
+    /* ── OBJ BOX ── */
+    .obj {
+      background: #fffbeb;
+      border-radius: .6rem;
+      padding: .6rem 1rem;
+      font-size: .86rem;
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+      border: 1px solid #fde68a;
+      color: #78350f;
+    }
+    .obj span { font-weight: 800; margin-right: .3rem; }
+
+    /* ── LIST STYLES ── */
+    ul, ol { padding-left: 1.4rem; }
+    li { margin-bottom: .35rem; }
+
+    /* ── HIGHLIGHT ── */
+    mark { background: var(--yellow); padding: 0 .2em; border-radius: .2em; }
+    mark.green { background: var(--green); }
+    mark.blue  { background: var(--blue); }
+    mark.red   { background: var(--red); }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 1rem 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 60px;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg,#fbbf24,#34d399);
+    }
+    .tl-item {
+      flex: 1;
+      min-width: 130px;
+      text-align: center;
+      padding-top: 0;
+    }
+    .tl-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fbbf24;
+      border: 3px solid #92400e;
+      margin: 20px auto 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .tl-era  { font-weight: 800; font-size: .85rem; color: #1e1b4b; }
+    .tl-date { font-size: .73rem; color: #6b7280; }
+
+    /* ── COMPARISON TABLE ── */
+    .cmp-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: .88rem;
+      border-radius: .8rem;
+      overflow: hidden;
+    }
+    .cmp-table th {
+      background: #312e81;
+      color: #e0e7ff;
+      padding: .7rem 1rem;
+      text-align: left;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .cmp-table td {
+      padding: .6rem 1rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .cmp-table tr:last-child td { border-bottom: none; }
+    .cmp-table tr:nth-child(odd) td { background: #f8f7ff; }
+    .cmp-table td:first-child { font-weight: 700; color: #374151; font-size: .82rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    /* ── TWO-COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin: 1rem 0;
+    }
+    @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+
+    .box {
+      background: #f0fdf4;
+      border: 1px solid #a7f3d0;
+      border-radius: .8rem;
+      padding: 1rem 1.1rem;
+    }
+    .box.purple {
+      background: #faf5ff;
+      border-color: #d8b4fe;
+    }
+    .box.red {
+      background: #fff5f5;
+      border-color: #fca5a5;
+    }
+    .box h4 {
+      font-size: .88rem;
+      font-weight: 800;
+      margin-bottom: .4rem;
+      color: #065f46;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .box.purple h4 { color: #6d28d9; }
+    .box.red    h4 { color: #b91c1c; }
+
+    /* ── POWERS GRID ── */
+    .powers {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: .8rem;
+      margin: 1rem 0;
+    }
+    @media (max-width:560px){ .powers { grid-template-columns:1fr; } }
+    .power-card {
+      border-radius: .6rem;
+      padding: .8rem 1rem;
+      text-align: center;
+    }
+    .power-card .icon { font-size: 1.6rem; margin-bottom: .3rem; }
+    .power-card h4 { font-size: .9rem; font-weight: 800; }
+    .power-card p  { font-size: .8rem; color: #374151; margin-top: .2rem; }
+    .lc { background: #eff6ff; border: 1.5px solid #93c5fd; }
+    .ec { background: #f0fdf4; border: 1.5px solid #6ee7b7; }
+    .jc { background: #fef9c3; border: 1.5px solid #fbbf24; }
+
+    /* ── QUOTE ── */
+    blockquote {
+      border-left: 3px solid #818cf8;
+      background: #faf5ff;
+      border-radius: 0 .8rem .8rem 0;
+      padding: .9rem 1.3rem;
+      font-style: italic;
+      margin: 1.2rem 0;
+      color: #4c1d95;
+      font-weight: 500;
+      font-size: .95rem;
+    }
+
+    /* ── STORY ── */
+    .story {
+      background: #fffdf0;
+      border: 1px solid #fde68a;
+      border-radius: .8rem;
+      padding: 1.2rem 1.5rem;
+      margin: 1rem 0;
+      line-height: 1.85;
+      font-size: .93rem;
+    }
+    .story-title {
+      font-weight: 800;
+      color: #92400e;
+      margin-bottom: .6rem;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    /* ── DEBATE ── */
+    .debate {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    @media(max-width:560px){ .debate { grid-template-columns:1fr; } }
+    .debate-col h4 { font-size: .9rem; font-weight: 800; margin-bottom: .5rem; }
+    .debate-col ul li { font-size: .88rem; }
+    .contra h4 { color: #dc2626; }
+    .favor  h4 { color: #059669; }
+
+    /* ── TAG ── */
+    .tag {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: .15rem .55rem;
+      border-radius: 999px;
+      margin: .15rem .1rem;
+    }
+    .tag-purple { background: #ede9fe; color: #5b21b6; }
+    .tag-green  { background: #d1fae5; color: #065f46; }
+    .tag-blue   { background: #dbeafe; color: #1e3a8a; }
+    .tag-yellow { background: #fef9c3; color: #78350f; }
+
+    /* ── SCORE ── */
+    .score {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      background: #d1fae5;
+      border: 1.5px solid #6ee7b7;
+      border-radius: .5rem;
+      padding: .2rem .7rem;
+      font-weight: 800;
+      color: #065f46;
+      font-size: .85rem;
+      float: right;
+      margin-top: -.3rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #9ca3af;
+      font-size: .8rem;
+      letter-spacing: .04em;
+    }
+
+    p { margin-bottom: .6rem; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #f1f5f9;
+      margin: 1.4rem 0;
+    }
+
+    .arrow-flow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin: .8rem 0;
+      font-weight: 700;
+      font-size: .92rem;
+    }
+    .arrow-flow span { color: #7c3aed; font-size: 1.2rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📓 Apuntes de Historia</h1>
+</header>
+
+<nav>
+  <a href="#edades">Las Edades</a>
+  <a href="#comercio">Resurgimiento Comercial</a>
+  <a href="#capitalismo">Capitalismo</a>
+  <a href="#economia">Economía Feudal vs. Moderna</a>
+  <a href="#monarquias">Monarquías</a>
+  <a href="#estados">Estados Nacionales</a>
+  <a href="#absolutismo">Absolutismo</a>
+  <a href="#crisis">Crisis Edad Media</a>
+  <a href="#renacimiento">Renacimiento</a>
+  <a href="#reforma">Reforma Protestante</a>
+  <a href="#ciencia">Ciencia Moderna</a>
+  <a href="#viajes">Viajes de Exploración</a>
+  <a href="#colon">Colón y Capitulaciones</a>
+  <a href="#aztecas">Conquista Azteca</a>
+  <a href="#incas">Conquista Inca</a>
+  <a href="#visiones">Visiones de la Conquista</a>
+</nav>
+
+<main>
+
+  <!-- ══ 1. EDADES ══ -->
+  <section class="card" id="edades">
+    <div class="date-badge">Lunes 02/03</div>
+    <h2>Unidades del Curso &amp; Las Edades Históricas</h2>
+
+    <h3>Unidades</h3>
+    <ol>
+      <li>Regiones</li>
+      <li><mark>Origen de la modernidad</mark></li>
+      <li>Encuentro entre dos mundos y Chile colonial</li>
+      <li>Ilustración, Revolución e Independencia</li>
+    </ol>
+
+    <h3>Línea del Tiempo</h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">Edad Antigua</div>
+        <div class="tl-date">Invención escritura<br>3.500 a.C.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">Edad Media</div>
+        <div class="tl-date">Caída Imperio Romano<br>476 d.C.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">Edad Moderna</div>
+        <div class="tl-date">Caída Imperio Bizantino<br>1453 d.C.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">Edad Contemporánea</div>
+        <div class="tl-date">Revolución Francesa<br>1789 d.C.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 2. RESURGIMIENTO COMERCIAL ══ -->
+  <section class="card green" id="comercio">
+    <div class="date-badge">Martes 03/03 — Miércoles 04/03</div>
+    <h2>Resurgimiento Comercial</h2>
+    <div class="obj"><span>Obj:</span> Identificar las causas del resurgimiento comercial y establecer relaciones entre ellas.</div>
+
+    <p>Las mejoras en el <mark class="green">clima</mark> y en las <mark class="green">técnicas agrícolas</mark> condujeron a un aumento de la población y a la obtención de excedentes, con los cuales se empezó a reactivar el comercio.</p>
+
+    <h3>Relación Multicausal — Verbos clave</h3>
+    <p>Para explicar cómo se relacionan las causas se usan los siguientes verbos:</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem;">
+      <span class="tag tag-green">Agudiza</span>
+      <span class="tag tag-green">Impide</span>
+      <span class="tag tag-green">Permite</span>
+      <span class="tag tag-green">Favorece</span>
+      <span class="tag tag-green">Incrementa</span>
+      <span class="tag tag-green">Fomenta</span>
+    </div>
+  </section>
+
+  <!-- ══ 3. CAPITALISMO ══ -->
+  <section class="card orange" id="capitalismo">
+    <div class="date-badge">Jueves 05/03</div>
+    <h2>Surgimiento del Capitalismo</h2>
+    <div class="obj"><span>Obj:</span> Utilizar conceptos clave del pensamiento capitalista (interés, capital, letras de cambio, inversión) en la elaboración de textos.</div>
+
+    <h3>Conceptos Clave</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;">
+      <span class="tag tag-yellow">Interés</span>
+      <span class="tag tag-yellow">Crédito</span>
+      <span class="tag tag-yellow">Capital</span>
+      <span class="tag tag-yellow">Inversión</span>
+      <span class="tag tag-yellow">Letras de cambio</span>
+    </div>
+
+    <div class="arrow-flow">
+      <div>Edad Media<br><small style="font-weight:400">Economía autárquica (de subsistencia)</small></div>
+      <span>→</span>
+      <div>Resurgimiento Comercial<br><small style="font-weight:400">(Siglos XI – XII – XIII)</small></div>
+      <span>→</span>
+      <div>Capitalismo</div>
+    </div>
+    <div class="arrow-flow" style="margin-top:.3rem;">
+      <div>Prestamista</div>
+      <span>→</span>
+      <div>Banco</div>
+    </div>
+
+    <div class="story">
+      <div class="story-title">📖 El caso de Pepe — ejemplo práctico</div>
+      <p>Pepe era un extranjero que venía de Asia y se había instalado en un pequeño pueblo. Mientras se instalaba para vender lo poco que tenía, se dio cuenta de que a la gente le llamó la atención la <strong>seda</strong> que llevaba, y que nadie más la tenía.</p>
+      <p>Se le ocurrió la idea de volver a Asia en busca de más seda. Para eso tuvo que pedir un <mark>crédito</mark> a un prestamista. Con ese dinero viajó, compró más seda, pagó el <mark>interés</mark> que debía y empezó a vender.</p>
+      <p>Cada vez conseguía más dinero, con el que <mark>invirtió</mark> comprando frutas y plantando semillas. Con todo el <mark>capital</mark> que acumuló, logró comprar una casa y mantener su próspero negocio.</p>
+    </div>
+  </section>
+
+  <!-- ══ 4. ECONOMÍA FEUDAL vs MODERNA ══ -->
+  <section class="card blue" id="economia">
+    <div class="date-badge">Jueves 05/03 — Martes 10/03</div>
+    <h2>Economía Feudal vs. Economía Moderna</h2>
+    <div class="obj"><span>Obj:</span> Comparar la estructura económica feudal con la moderna.</div>
+    <div class="score">✅ 3/3</div>
+
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Economía Feudal</th>
+          <th>Economía Moderna</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Poder y riqueza</td>
+          <td>Tierras</td>
+          <td>Capital y Dinero</td>
+        </tr>
+        <tr>
+          <td>Grupos sociales</td>
+          <td>Campesinos, siervos, nobles</td>
+          <td>Mercaderes, burgueses</td>
+        </tr>
+        <tr>
+          <td>Actividad</td>
+          <td>Autosubsistencia, intercambio, agricultura</td>
+          <td>Comercio</td>
+        </tr>
+        <tr>
+          <td>Fin / objetivo</td>
+          <td>Subsistir</td>
+          <td>Generar dinero</td>
+        </tr>
+        <tr>
+          <td>Carácter / tipo</td>
+          <td>Rural</td>
+          <td>Urbana</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ══ 5. MONARQUÍAS ══ -->
+  <section class="card" id="monarquias">
+    <div class="date-badge">Martes 10/03 — Miércoles 11/03 — Lunes 16/03</div>
+    <h2>De Feudos a Estados Nacionales: Las Monarquías</h2>
+    <div class="obj"><span>Obj:</span> Comparar la monarquía parlamentaria y la monarquía absoluta considerando instituciones, poderes del Estado y sujetos sociales.</div>
+
+    <div class="two-col">
+      <div class="box purple">
+        <h4>👑 Monarquía Parlamentaria</h4>
+        <p>Hay un rey, pero hay otras personas que también toman decisiones.</p>
+        <ul>
+          <li><strong>Rey</strong>: reina creando leyes.</li>
+          <li><strong>Parlamento</strong>: gobierna aprobando leyes.</li>
+          <li>Compuesto por: <em>Cámara de Lores</em> y <em>Cámara Común</em>.</li>
+          <li>El poder <mark>se divide</mark>.</li>
+        </ul>
+      </div>
+      <div class="box red">
+        <h4>⚔️ Monarquía Absoluta</h4>
+        <p>El rey tiene <strong>todo el poder</strong> y toma todas las decisiones.</p>
+        <ul>
+          <li>No existe contrapeso institucional.</li>
+          <li>Luis XIV es el ejemplo clásico.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Formación histórica</h3>
+    <p>La formación de la monarquía <strong>inglesa</strong> y <strong>francesa</strong> fueron diferentes:</p>
+    <ul>
+      <li>En la <mark class="blue">inglesa</mark>, los reyes <em>no lograron</em> derrotar a los señores feudales, por lo tanto tuvieron que unirse a ellos → monarquía parlamentaria.</li>
+      <li>En la <mark class="red">francesa</mark>, los reyes <em>debilitaron</em> a los demás nobles y se quedaron con todo el poder → monarquía absoluta.</li>
+    </ul>
+    <p>Algo en común: ambas comenzaron a formarse en el <strong>siglo XII</strong>.</p>
+
+    <blockquote>"Con esto no terminó la monarquía en Inglaterra, solo se transformó."</blockquote>
+  </section>
+
+  <!-- ══ 6. ESTADOS NACIONALES ══ -->
+  <section class="card teal" id="estados">
+    <div class="date-badge">Jueves 12/03 — Martes 17/03 — Miércoles 18/03</div>
+    <h2>Estados Nacionales Monárquicos</h2>
+    <div class="obj"><span>Obj:</span> Diferenciar los conceptos de Estado y Nación, y establecer vínculos entre la ciudad, la libertad y los reyes.</div>
+
+    <div class="two-col">
+      <div class="box">
+        <h4>Estado</h4>
+        <ul>
+          <li>Organización política común.</li>
+          <li>Gobierno propio, soberano e independiente.</li>
+          <li>Territorio definido.</li>
+        </ul>
+      </div>
+      <div class="box purple">
+        <h4>Nación</h4>
+        <ul>
+          <li>Conjunto de personas que comparten territorio.</li>
+          <li>Vínculos históricos y culturales.</li>
+          <li>Idioma común.</li>
+          <li>Sentido de pertenencia, pueblo y comunidad.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Poderes del Estado</h3>
+    <div class="powers">
+      <div class="power-card lc">
+        <div class="icon">🏛️</div>
+        <h4>Legislativo</h4>
+        <p>Parlamento o Congreso<br><em>(diputados y senadores)</em></p>
+      </div>
+      <div class="power-card ec">
+        <div class="icon">🏛️</div>
+        <h4>Ejecutivo</h4>
+        <p>Presidente y su gabinete<br><em>(Ministros)</em></p>
+      </div>
+      <div class="power-card jc">
+        <div class="icon">⚖️</div>
+        <h4>Judicial</h4>
+        <p>Tribunal de Justicia</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <h3>¿Qué necesitaba un rey para formar su Estado Nacional Monárquico?</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0 1rem;">
+      <span class="tag tag-blue">Tierras</span>
+      <span class="tag tag-blue">Gente</span>
+      <span class="tag tag-blue">Capital</span>
+      <span class="tag tag-blue">Ejército</span>
+      <span class="tag tag-blue">Impuestos</span>
+    </div>
+
+    <h3>¿Qué hicieron los reyes para consolidar sus Estados?</h3>
+    <ul>
+      <li>Los estados monárquicos tenían un <mark class="blue">ejército permanente y profesional</mark>.</li>
+      <li>Los <strong>burgueses</strong> le prestaban capital al rey; el rey les proporcionaba <strong>protección</strong>.</li>
+      <li>El rey tenía <strong>funcionarios</strong> para cobrar impuestos.</li>
+      <li>Se relacionaban con el exterior mediante <strong>embajadas</strong> y funcionarios.</li>
+    </ul>
+
+    <hr class="divider" />
+    <h3>Luis XIV — Guía 4</h3>
+    <ol>
+      <li>A partir del reinado de Luis XIV, el principal cambio es que el rey tiene <mark>mayor poder al tomar decisiones</mark>.</li>
+      <li>Lo que intenta transmitir Luis XIV en su discurso es que él tiene todo el poder y <em>no requiere de otros</em> para tomar decisiones.</li>
+    </ol>
+  </section>
+
+  <!-- ══ 7. ABSOLUTISMO ══ -->
+  <section class="card red" id="absolutismo">
+    <div class="date-badge">Jueves 19/03 — Lunes 23/03</div>
+    <h2>Teoría del Absolutismo</h2>
+    <div class="obj"><span>Obj:</span> Explicar al menos 2 teorías distintas que legitiman el absolutismo.</div>
+    <div class="score">✅ 3/3 ¡Bien!</div>
+
+    <p>En la <strong>Edad Media</strong> el centro era <em>Dios</em>, mientras que en la <strong>Edad Moderna</strong> hay prioridad en el <em>individuo</em>; el capitalismo influyó en este cambio.</p>
+
+    <blockquote>"El hombre es el lobo del hombre" — Hobbes</blockquote>
+
+    <h3>Definición</h3>
+    <p>El absolutismo es un <strong>sistema de gobierno</strong> donde el rey tiene todo el poder, puede hacer lo que quiera y no hay nada que limite su poder.</p>
+
+    <h3>Teorías que legitiman el absolutismo</h3>
+
+    <div style="display:flex;flex-direction:column;gap:.8rem;margin-top:.5rem;">
+      <div class="box red">
+        <h4>1. Maquiavelo</h4>
+        <p>El objetivo principal de un gobernante es <mark class="red">mantener el poder y la seguridad del país</mark>, y no debe dudar en usar cualquier medio para lograr su objetivo.</p>
+      </div>
+      <div class="box purple">
+        <h4>2. Jean Bodin — Teoría del Origen Divino del Poder</h4>
+        <p>El rey tiene un <mark>mando divino</mark>; está por encima de las leyes y no tiene por qué estar sujeto a ellas. Ninguna persona o cuerpo civil puede controlar su poder.</p>
+      </div>
+      <div class="box">
+        <h4>3. Thomas Hobbes — El Leviatán</h4>
+        <p>Por instinto de supervivencia, los hombres ceden su poder a un soberano (el Estado / "El Leviatán"). Se centra más en las <mark class="green">personas</mark> como origen del poder del rey.</p>
+      </div>
+      <div class="box purple">
+        <h4>4. Bossuet</h4>
+        <p>El rey es la <mark>imagen de Dios</mark> que, sentado en su trono, hace marchar a toda la naturaleza. El rey concentra todo el poder. Su poder viene directamente de Dios.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+    <h3>Diferencia Hobbes vs. Bossuet</h3>
+    <ul>
+      <li>Hobbes se concentra más en <strong>las personas</strong> como fuente del poder del rey.</li>
+      <li>Bossuet se centra en <strong>Dios</strong>: el poder del rey es divino.</li>
+      <li><em>Similitud</em>: ambos creen que solo el rey debe tener el poder.</li>
+    </ul>
+  </section>
+
+  <!-- ══ 8. CRISIS EDAD MEDIA ══ -->
+  <section class="card orange" id="crisis">
+    <div class="date-badge">Martes 24/03 — Miércoles 25/03 — Jueves 26/03</div>
+    <h2>Crisis de la Baja Edad Media</h2>
+    <div class="obj"><span>Obj:</span> Explicar la crisis de la Edad Media en el contexto de fines del período medieval.</div>
+
+    <h3>Tipos de tiempo histórico</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem;">
+      <span class="tag tag-yellow">Corta duración: hecho</span>
+      <span class="tag tag-purple">Mediana duración: coyuntura</span>
+      <span class="tag tag-blue">Larga duración: estructura</span>
+    </div>
+
+    <h3>Las cuatro grandes crisis</h3>
+    <div style="display:flex;flex-direction:column;gap:.7rem;">
+      <div class="box red">
+        <h4>🌾 Crisis Popular</h4>
+        <p><strong>Hambre y Rebeliones.</strong> Hambrunas producidas por las malas cosechas. Muchos siervos se rebelan y van a las ciudades para ser libres.</p>
+      </div>
+      <div class="box red">
+        <h4>☠️ La Peste Negra</h4>
+        <p>Causó la muerte de <mark class="red">casi la mitad de la población</mark> europea. Era normal ver gente muerta y cadáveres en descomposición en la calle. Las bacterias se transmitían principalmente por <strong>pulgas y roedores</strong>.</p>
+      </div>
+      <div class="box purple">
+        <h4>⚔️ La Guerra de los Cien Años (1337–1453)</h4>
+        <p>Enfrentó a <strong>Inglaterra</strong> con <strong>Francia</strong> por la sucesión del trono francés (donde Inglaterra controlaba varios feudos). Consecuencias:</p>
+        <ul>
+          <li>Dejó a ambos países muy pobres.</li>
+          <li>Fortaleció los <mark>sentimientos nacionalistas</mark> y el poder de los reyes.</li>
+          <li>Comenzó como guerra entre feudos y terminó como guerra entre Estados Monárquicos.</li>
+          <li><mark>Juana de Arco</mark> → símbolo de Francia.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h4>🙏 Crisis Espiritual</h4>
+        <p>Desesperanza, incertidumbre y perturbación generalizada.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+    <h3>Contexto mundial durante la crisis</h3>
+    <ul>
+      <li>Mientras Europa estaba en crisis, en Asia el <strong>Imperio Mongol</strong> estaba creciendo considerablemente.</li>
+      <li>Después de la crisis surge el <strong>Renacimiento</strong>, donde cambia la mentalidad y cultura por medio del arte.</li>
+    </ul>
+
+    <hr class="divider" />
+    <h3>Libertad en la ciudad — Fuentes históricas</h3>
+    <ul>
+      <li>En el pasado, quienes disfrutaban de la libertad eran los <strong>nobles</strong>.</li>
+      <li>Cuando un siervo vivía <mark>un año en la ciudad</mark> se ganaba un título y obtenía libertad.</li>
+    </ul>
+  </section>
+
+  <!-- ══ 9. RENACIMIENTO ══ -->
+  <section class="card green" id="renacimiento">
+    <div class="date-badge">Martes 31/03 — Miércoles 01/04 — Jueves 02/04</div>
+    <h2>Humanismo y Renacimiento</h2>
+    <div class="obj"><span>Obj:</span> Caracterizar el Humanismo Renacentista e identificar sus características en fuentes primarias.</div>
+    <div class="score">✅ 3/3 ¡Bien!</div>
+
+    <h3>Origen del Renacimiento</h3>
+    <ul>
+      <li>En el Imperio Bizantino se mantuvo viva la <mark class="green">cultura greco-romana</mark>.</li>
+      <li>Al caer el Imperio Bizantino (1453), los sabios de oriente huyeron a la <strong>Península Itálica</strong> llevando consigo el legado de esa cultura.</li>
+    </ul>
+
+    <div class="two-col">
+      <div class="box">
+        <h4>📚 Humanismo (Letras / Libros)</h4>
+        <p>Movimiento intelectual centrado en el ser humano.</p>
+      </div>
+      <div class="box purple">
+        <h4>🎨 Renacentismo (Arte)</h4>
+        <p>Expresión artística del Humanismo, rescatando los modelos de Grecia y Roma.</p>
+      </div>
+    </div>
+
+    <h3>Características del Humanismo</h3>
+    <ul>
+      <li><mark class="green">Antropocéntrico</mark>: se centra en el ser humano (no en Dios).</li>
+      <li>Rescate de las culturas clásicas (Grecia y Roma).</li>
+      <li>Se cuestiona la Edad Media.</li>
+      <li>Realismo en el arte.</li>
+      <li>Perspectiva, fondos, luces y sombras en la pintura.</li>
+    </ul>
+
+    <blockquote>"Si Dios nos hizo para pensar, eso es lo que vamos a hacer."</blockquote>
+
+    <hr class="divider" />
+    <h3>Guía 13 — Análisis de fuentes</h3>
+    <ol>
+      <li>El texto analizado es una <strong>fuente primaria</strong> de soporte escrito.</li>
+      <li>Característica del Humanismo presente: da mayor enfoque al ser humano. <em>"A ti Adán, tú tendrás la forma y función que desees."</em></li>
+      <li>Elemento de la Edad Media presente: sigue mencionando a Dios; la gente sigue siendo católica.</li>
+      <li><strong>Erasmo de Rotterdam</strong> puede ser considerado humanista porque en su texto toma como centro al humano.</li>
+      <li>La mentalidad actual presente: el humano está más cerca de Dios. <em>"Dios nos dio la razón; si la persona es buena o mala depende de cómo la moldeas."</em></li>
+    </ol>
+  </section>
+
+  <!-- ══ 10. REFORMA PROTESTANTE ══ -->
+  <section class="card" id="reforma">
+    <div class="date-badge">Miércoles 08/04 — Jueves 09/04</div>
+    <h2>Humanismo y Reforma Protestante (1517)</h2>
+    <div class="obj"><span>Obj:</span> Vincular el humanismo con la Reforma Protestante y explicar su desarrollo.</div>
+
+    <h3>Contexto Siglo XV — Corrupción de la Iglesia</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+      <div class="box red" style="flex:1;min-width:180px;">
+        <h4>Simonía</h4>
+        <p>Venta de los cargos eclesiásticos.</p>
+      </div>
+      <div class="box red" style="flex:1;min-width:180px;">
+        <h4>Nepotismo</h4>
+        <p>Traspasar el cargo a un pariente.</p>
+      </div>
+      <div class="box red" style="flex:1;min-width:180px;">
+        <h4>Indulgencias</h4>
+        <p>Venta del perdón.</p>
+      </div>
+      <div class="box red" style="flex:1;min-width:180px;">
+        <h4>Diezmo</h4>
+        <p>Cobro obligatorio del 10% a los fieles.</p>
+      </div>
+    </div>
+    <p>Se empezó a <mark class="red">"comercializar" la Iglesia</mark>: se vendían cargos, reliquias y el perdón, y se cobraban diezmos.</p>
+
+    <hr class="divider" />
+    <h3>Martín Lutero y sus Críticas (95 Tesis, 1517)</h3>
+    <p>Martín Lutero se atrevió a criticar públicamente a la Iglesia Católica. Sus principales críticas:</p>
+    <ul>
+      <li>La venta de <strong>indulgencias</strong>.</li>
+      <li>Que solo los sacerdotes leyeran la Biblia.</li>
+      <li>Mantuvo solo <mark>2 de los 7 sacramentos</mark>: <strong>bautismo</strong> y <strong>eucaristía</strong>.</li>
+      <li>Estaba en contra de la <strong>jerarquía eclesiástica</strong>.</li>
+    </ul>
+
+    <hr class="divider" />
+    <h3>¿Quiénes apoyaban y quiénes se oponían?</h3>
+    <div class="debate">
+      <div class="debate-col contra">
+        <h4>En Contra</h4>
+        <ul>
+          <li>La Iglesia Católica (Papa)</li>
+          <li>Carlos V (Emperador — hijo de Felipe y Juana, nacido en 1500)</li>
+        </ul>
+      </div>
+      <div class="debate-col favor">
+        <h4>A Favor</h4>
+        <ul>
+          <li>Burgueses* </li>
+          <li>Príncipes alemanes</li>
+        </ul>
+      </div>
+    </div>
+    <p><small>*Los burgueses apoyaban a Lutero porque, según él, los burgueses tenían dinero porque Dios los había premiado.</small></p>
+
+    <hr class="divider" />
+    <h3>Principales religiones en la época</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem;">
+      <span class="tag tag-purple">Hinduismo</span>
+      <span class="tag tag-blue">Judaísmo</span>
+      <span class="tag tag-green">Budismo (500 a.C.)</span>
+      <span class="tag tag-yellow">Catolicismo (0–33 d.C.)</span>
+      <span class="tag tag-purple">Islam (700 d.C.)</span>
+      <span class="tag tag-blue">Protestantismo (1517 d.C.)</span>
+    </div>
+  </section>
+
+  <!-- ══ SEPARADOR UNIDAD 2 ══ -->
+  <div style="background:linear-gradient(135deg,#065f46,#059669);color:#fff;border-radius:1rem;padding:1.5rem 2rem;text-align:center;">
+    <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:.4rem;">Continuación — Cuaderno 2</div>
+    <h2 style="font-size:1.5rem;font-weight:800;margin:0;">Unidad 2: Conquista y Colonia en América</h2>
+    <p style="opacity:.8;margin:.4rem 0 0;font-size:.9rem;">Desde la Ciencia Moderna hasta la Conquista del continente americano</p>
+  </div>
+
+  <!-- ══ 11. CIENCIA E HISTORIA ══ -->
+  <section class="card teal" id="ciencia">
+    <div class="date-badge">Lunes 20/04 — Martes 21/04 — Miércoles 22/04</div>
+    <h2>Ciencia e Historia — Surgimiento de la Ciencia Moderna (Siglo XVI)</h2>
+    <div class="obj"><span>Obj:</span> Vincular la Historia con la ciencia y diferenciar entre racionalismo y empirismo.</div>
+
+    <h3>Kuhn y la Revolución Científica — Guía 19</h3>
+    <div style="display:flex;flex-direction:column;gap:.7rem;margin-bottom:1rem;">
+      <div class="box purple">
+        <h4>1. ¿Qué vínculo establece Kuhn entre ciencia e historia?</h4>
+        <p>La ciencia es un <mark>producto de la combinación de la historia y la sociedad</mark>.</p>
+      </div>
+      <div class="box purple">
+        <h4>2. ¿Qué es una revolución científica según Kuhn?</h4>
+        <p>Es cuando hay un problema o fenómeno científico que <strong>no puede explicarse</strong> a partir de la mentalidad de su época y solo puede resolverse <mark>cambiando de paradigma</mark>.</p>
+      </div>
+    </div>
+
+    <blockquote>"Logré ver más lejos porque me subí sobre hombros de gigantes." — Newton</blockquote>
+
+    <hr class="divider" />
+    <h3>Formas de construir el conocimiento</h3>
+    <div class="two-col">
+      <div class="box purple">
+        <h4>Racionalismo — René Descartes</h4>
+        <p>El conocimiento proviene de la <mark>razón</mark>. Se piensa, luego se conoce.</p>
+        <blockquote style="font-size:.88rem;margin-top:.6rem;">"Pienso, luego existo."</blockquote>
+      </div>
+      <div class="box">
+        <h4>Empirismo — Francis Bacon</h4>
+        <p>El conocimiento proviene de la <mark class="green">experiencia y observación</mark> del mundo real.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+    <h3>Características del Origen de la Edad Moderna (Siglo XVI)</h3>
+    <p>Síntesis de los grandes cambios que dieron forma a un <strong>nuevo paradigma</strong>:</p>
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Ámbito</th>
+          <th>Cambios / Fenómenos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Político</td>
+          <td>Guerra de los Cien Años · Surgimiento de los Estados Nacionales · Caída del Imperio Bizantino</td>
+        </tr>
+        <tr>
+          <td>Económico</td>
+          <td>Resurgimiento Urbano · Resurgimiento Comercial · Surge el Capitalismo</td>
+        </tr>
+        <tr>
+          <td>Social</td>
+          <td>Surge la Burguesía · Crisis de la Edad Media · Peste Negra</td>
+        </tr>
+        <tr>
+          <td>Cultural</td>
+          <td>Renacimiento · Surge la Iglesia Luterana (Reforma Protestante) · Revolución Científica · Surge el Humanismo (Antropocentrismo) · Teoría Heliocéntrica · Nuevo paradigma</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="story">
+      <div class="story-title">📝 Texto de introducción (Unidad 2)</div>
+      <p>A finales de la Edad Media y a comienzos de la Edad Moderna se producen una serie de cambios que dan forma a un nuevo paradigma. Entre los cambios de ámbito <strong>político</strong> se encuentran la guerra de los cien años, el surgimiento de los estados monárquicos nacionales (tanto parlamentarios como absolutos) y la caída del Imperio Bizantino. Los cambios <strong>sociales</strong> incluyen el surgimiento de la Burguesía y la Peste Negra. Los cambios <strong>económicos</strong> incluyen el surgimiento del capitalismo, impulsado por el resurgimiento comercial y urbano. Pero los cambios más numerosos fueron los <strong>culturales</strong>: el paso del teocentrismo al antropocentrismo, la Reforma Protestante, la teoría heliocéntrica, el estilo renacentista en el arte y la Revolución Científica, que dio origen a todo el conocimiento con el que contamos hoy en día.</p>
+    </div>
+  </section>
+
+  <!-- ══ 12. VIAJES DE EXPLORACIÓN ══ -->
+  <section class="card green" id="viajes">
+    <div class="date-badge">Miércoles 29/04 — Jueves 30/04 — Lunes 04/05</div>
+    <h2>Viajes de Exploración (Siglos XV y XVI)</h2>
+    <div class="obj"><span>Obj:</span> Identificar y clasificar las causas de los viajes de exploración. (Guía 24)</div>
+
+    <h3>Exploradores clave</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1rem;">
+      <div class="box purple" style="flex:1;min-width:200px;">
+        <h4>Enrique el Navegante (Portugal, 1447)</h4>
+        <p>Fundó una academia de navegación con sabios árabes y chinos que compartían su conocimiento y avances tecnológicos.</p>
+      </div>
+      <div class="box" style="flex:1;min-width:200px;">
+        <h4>Bartolomé Díaz</h4>
+        <p>"Descubrió" donde terminaba África (Cabo de Buena Esperanza).</p>
+      </div>
+      <div class="box" style="flex:1;min-width:200px;">
+        <h4>Vasco de Gama (1498)</h4>
+        <p>Se apartó de las costas de África y llegó a India abriendo la ruta marítima.</p>
+      </div>
+      <div class="box purple" style="flex:1;min-width:200px;">
+        <h4>Cristóbal Colón</h4>
+        <p>Su objetivo era encontrar una nueva ruta de comercio hacia las zonas dominadas por el Imperio Turco. Como creía que la tierra era redonda, pensó que si daba la vuelta llegaría a la India.</p>
+      </div>
+    </div>
+
+    <p><strong>Portugal vs. España:</strong> Mientras España colonizaba América, Portugal se dedicaba casi exclusivamente a la <mark class="red">venta y exportación de esclavos</mark>. La venta y tráfico de esclavos era bastante común, y hubo discusiones sobre si los negros eran humanos (en muchos casos los declararon animales para justificar la esclavitud).</p>
+
+    <hr class="divider" />
+    <h3>Causas de los Viajes de Exploración — Guía 24</h3>
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Políticas</th>
+          <th>Económicas</th>
+          <th>Sociales</th>
+          <th>Culturales</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Caída del Imperio Bizantino · Invasión turca a Constantinopla · Expulsión de los Árabes de Granada · Ansias de poder de las monarquías</td>
+          <td>Encontrar nuevas rutas de comercio · Monopolización del comercio por Italianos y Árabes</td>
+          <td>Iniciativa emprendedora de la Burguesía y surgimiento de esta</td>
+          <td>Abandonar creencias medievales (monstruos, dragones) · Innovaciones tecnológicas · Mentalidad renacentista · Expandir el Cristianismo (evangelizar) · Revolución Científica · Ideas de Marco Polo · Búsqueda de un paraíso terrenal</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="divider" />
+    <h3>Relación Multicausal — ¿Cómo se descubrió América?</h3>
+    <div class="story">
+      <p>Cuando el comercio fue monopolizado por los Árabes y los Italianos, quienes estaban más lejos, como los Españoles, querían encontrar nuevas rutas. Como ya estaban casi seguros de que la tierra era redonda (<mark>teoría heliocéntrica</mark>), usaron la lógica de que si le daban la vuelta llegarían a Asia por otro lado. Ahí fue cuando accidentalmente <strong>"descubrieron" América</strong>. Y gracias a la <mark class="green">burguesía</mark> pudieron financiar los viajes de exploración.</p>
+    </div>
+  </section>
+
+  <!-- ══ 13. COLÓN Y CAPITULACIONES ══ -->
+  <section class="card orange" id="colon">
+    <div class="date-badge">Martes 05/05</div>
+    <h2>Cristóbal Colón y las Capitulaciones de Santa Fe</h2>
+    <div class="obj"><span>Obj:</span> Graficar, a través de un mapa, los viajes de exploración.</div>
+
+    <h3>Capitulaciones de Santa Fe — Acuerdo con la Corona Española</h3>
+    <div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem;">
+      <div class="box" style="display:flex;align-items:flex-start;gap:.8rem;">
+        <span style="font-size:1.3rem;">👑</span>
+        <p>La <strong>Corona Española (Castilla)</strong> apoya y autoriza el viaje.</p>
+      </div>
+      <div class="box" style="display:flex;align-items:flex-start;gap:.8rem;">
+        <span style="font-size:1.3rem;">🎖️</span>
+        <p>Ofrecen a Colón el título de <mark>Virrey y Capitán General</mark>.</p>
+      </div>
+      <div class="box" style="display:flex;align-items:flex-start;gap:.8rem;">
+        <span style="font-size:1.3rem;">💰</span>
+        <p><strong>10%</strong> de los recursos que obtenga serán para Colón.</p>
+      </div>
+      <div class="box" style="display:flex;align-items:flex-start;gap:.8rem;">
+        <span style="font-size:1.3rem;">🗺️</span>
+        <p>Las <mark>tierras conquistadas</mark> serán parte de la Corona Española.</p>
+      </div>
+      <div class="box" style="display:flex;align-items:flex-start;gap:.8rem;">
+        <span style="font-size:1.3rem;">✝️</span>
+        <p>El deber de <mark>evangelizar</mark>.</p>
+      </div>
+    </div>
+
+    <div class="arrow-flow">
+      <span style="color:#d97706;font-size:1rem;">⚓</span>
+      <div>Colón parte el <strong>3 de agosto</strong></div>
+      <span>→</span>
+      <div><strong>1492</strong> — Llegada a América</div>
+    </div>
+
+    <hr class="divider" />
+    <h3>Bula Inter Caetera y Tratado de Tordesillas (1494)</h3>
+    <p>Cuando la Iglesia pone la <strong>Bula Inter Caetera</strong> (dividiendo las tierras entre España y Portugal), Portugal pone resistencia y se termina firmando el <mark>Tratado de Tordesillas (1494)</mark>, que trazó una línea divisoria del mundo.</p>
+
+    <hr class="divider" />
+    <h3>España vs. Inglaterra en América</h3>
+    <div class="two-col">
+      <div class="box red">
+        <h4>España (América del Sur)</h4>
+        <p>Fueron a <strong>conquistar</strong>. Buscaban riqueza y poder.</p>
+      </div>
+      <div class="box">
+        <h4>Inglaterra (América del Norte)</h4>
+        <p>Fueron a <strong>trabajar</strong>. Fueron con sus familias y construyeron sus casas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 14. CONQUISTA AZTECA ══ -->
+  <section class="card red" id="aztecas">
+    <div class="date-badge">Jueves 14/05 — Lunes 18/05 — Martes 19/05</div>
+    <h2>Conquista de México — Imperio Azteca</h2>
+    <div class="obj"><span>Obj:</span> Explicar la conquista de México y los factores que la facilitaron.</div>
+
+    <h3>Contexto</h3>
+    <p><strong>Moctezuma</strong> era el emperador de <mark>Tenochtitlan</mark> cuando llegó <strong>Hernán Cortés en 1519</strong>. Los españoles convencieron a los pueblos dominados por los Aztecas de unirse a ellos.</p>
+
+    <h3>Factores que facilitaron la conquista del Imperio Azteca</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem;">
+      <div class="box red" style="flex:1;min-width:160px;">
+        <h4>⚡ Profecía divina</h4>
+        <p>Los indígenas creyeron que los españoles eran dioses.</p>
+      </div>
+      <div class="box red" style="flex:1;min-width:160px;">
+        <h4>🤝 Alianzas</h4>
+        <p>Alianza con los pueblos sometidos por los Aztecas.</p>
+      </div>
+      <div class="box red" style="flex:1;min-width:160px;">
+        <h4>⚔️ Tecnología</h4>
+        <p>Armas y ropa (armaduras) superiores.</p>
+      </div>
+      <div class="box red" style="flex:1;min-width:160px;">
+        <h4>🦠 Enfermedades</h4>
+        <p>Epidemias contra las que los nativos no tenían defensas.</p>
+      </div>
+      <div class="box red" style="flex:1;min-width:160px;">
+        <h4>🏛️ Estructura política</h4>
+        <p>Estructura política jerárquica del Imperio Azteca.</p>
+      </div>
+    </div>
+
+    <blockquote>El factor más relevante fue las <strong>alianzas con los pueblos sometidos</strong>, porque los Aztecas eran mayores en número y tenían ventaja. Convencer a esos pueblos fue de gran utilidad al momento de conquistarlos.</blockquote>
+  </section>
+
+  <!-- ══ 15. CONQUISTA INCA ══ -->
+  <section class="card" id="incas">
+    <div class="date-badge">Lunes 25/05</div>
+    <h2>Conquista del Imperio Inca</h2>
+    <div class="obj"><span>Obj:</span> Comparar la conquista de los Aztecas con la de los Incas.</div>
+
+    <p>Los españoles llegaron al Perú en <strong>1531</strong>, mientras los Incas estaban en plena <mark class="red">guerra civil</mark> entre <strong>Atahualpa</strong> y <strong>Huáscar</strong>. <strong>Francisco Pizarro</strong> capturó a Atahualpa, quien ofreció una gran cantidad de oro a cambio de su libertad, pero Pizarro igual lo mató.</p>
+
+    <hr class="divider" />
+    <h3>Comparación: Imperio Azteca vs. Imperio Inca</h3>
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Imperio Azteca (México)</th>
+          <th>Imperio Inca (Perú)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Capital prehispánica</td>
+          <td>Tenochtitlan</td>
+          <td>Cusco</td>
+        </tr>
+        <tr>
+          <td>Autoridad imperial</td>
+          <td>Moctezuma</td>
+          <td>Atahualpa y Huáscar</td>
+        </tr>
+        <tr>
+          <td>Conquistador español</td>
+          <td>Hernán Cortés</td>
+          <td>Francisco Pizarro y Diego de Almagro</td>
+        </tr>
+        <tr>
+          <td>Factores que facilitaron la conquista</td>
+          <td>Profecías, tecnología, enfermedades, estructura política jerárquica, alianza con pueblos.</td>
+          <td>Guerra civil, tecnología.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ══ 16. VISIONES SOBRE LA CONQUISTA ══ -->
+  <section class="card blue" id="visiones">
+    <div class="date-badge">Martes 26/05 — Jueves 28/05</div>
+    <h2>Visiones sobre la Conquista de América</h2>
+    <div class="obj"><span>Obj:</span> Identificar distintas visiones sobre un mismo proceso a través de fuentes. (Guía 26)</div>
+
+    <h3>Análisis de textos (3 visiones)</h3>
+    <div style="display:flex;flex-direction:column;gap:.7rem;margin-bottom:1rem;">
+      <div class="box">
+        <h4>📗 Texto 1 — Visión positiva</h4>
+        <p>Destaca los <mark class="green">nuevos alimentos</mark> que encontraron los europeos y que así consiguieron mayor variedad de comida.</p>
+      </div>
+      <div class="box purple">
+        <h4>📒 Texto 2 — Visión neutral / negativa</h4>
+        <p>Muestra una visión neutral, tal vez más tirada a negativa porque <mark>critica a los indígenas</mark> por no usar ropa.</p>
+      </div>
+      <div class="box red">
+        <h4>📕 Texto 3 — Visión negativa</h4>
+        <p>Muestra claramente una <mark class="red">visión negativa</mark> de la conquista.</p>
+      </div>
+    </div>
+
+    <h3>Las tres grandes ideas / estereotipos sobre América</h3>
+    <ol>
+      <li><strong>Visión negativa extrema:</strong> Los indígenas son vistos como bestias salvajes que vivían en pequeños pueblitos.</li>
+      <li><strong>Visión positiva extrema:</strong> El indígena es inocente y feliz, hay leyendas y lugares mágicos.</li>
+      <li><strong>Visión realista:</strong> La más equilibrada y cercana a los hechos históricos.</li>
+    </ol>
+
+    <blockquote>Lo que muestran estos textos son las <mark class="blue">ideas y estereotipos</mark> que se tienen sobre América.</blockquote>
+
+    <hr class="divider" />
+    <h3>Consecuencias de la Conquista</h3>
+    <ul>
+      <li>Pérdida de las <strong>costumbres y creencias</strong> de los pueblos que ya vivían ahí.</li>
+      <li>Las <strong>enfermedades</strong> traídas por los europeos <mark class="red">disminuyeron la población</mark> nativa drásticamente.</li>
+      <li>Imposición de una nueva cultura, religión e idioma.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>Apuntes de Historia · Origen de la Modernidad &amp; Conquista de América · Marzo – Mayo</p>
+</footer>
+
+</body>
+</html>
